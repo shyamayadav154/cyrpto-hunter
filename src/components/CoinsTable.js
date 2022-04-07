@@ -45,11 +45,11 @@ const pagination = {
 const CoinsTable = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const { currency, symbol } = useCryptoStat()
+  // const { currency, symbol } = useCryptoStat()
   const [search, setSearch] = useState('')
    const [page, setPage] = useState(1)
 
-   const {coins,loading} = useSelector(store=>store.cryptoData)
+   const {coins,loading,currency,symbol} = useSelector(store=>store.cryptoData)
  
 
 
@@ -187,7 +187,7 @@ const CoinsTable = () => {
             display: 'flex',
             justifyContent: 'center',
           }}
-          count={(handleSearch()?.length / 10).toFixed(0)}
+          count={parseInt((handleSearch()?.length / 10).toFixed(0))}
           onChange={(_,value)=>{
               setPage(value);
               window.scroll(0,450)

@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom'
 import { TrendingCoins } from '../../config/api'
 import { useCryptoStat } from '../../context/CryptoContext'
 import {numberWithCommas} from '../../utils/utils'
-
+import { useSelector } from 'react-redux'
 
  const carousel={
         height:'50%',
@@ -25,8 +25,11 @@ import {numberWithCommas} from '../../utils/utils'
 
  
 const Carousel = () => {
-    const {currency,symbol} = useCryptoStat()
+    // const {currency,symbol} = useCryptoStat()
+
+    const { currency, symbol } = useSelector((store) => store.cryptoData)
     const [trending, setTrending] = useState([])
+
     const fetchTrendingCoins = async()=>{
         const {data} = await axios.get(TrendingCoins(currency))
         console.log(data);

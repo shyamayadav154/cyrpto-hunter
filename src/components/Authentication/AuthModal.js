@@ -14,6 +14,7 @@ import { GoogleAuthProvider, signInWithPopup } from 'firebase/auth'
 import {auth} from '../../config/firebaseConfig'
 import { useCryptoStat } from '../../context/CryptoContext'
 import GoogleButton from 'react-google-button'
+import { useDispatch } from 'react-redux'
 
 const paper = {
   width: 400,
@@ -40,44 +41,21 @@ const style = {
   
 }
 
-const google = {
-  padding: 4,
-  paddingTop: 0,
-  display: 'flex',
-  flexDirection: 'column',
-  textAlign: 'center',
-  gap: 2,
-  fontSize: 20,
-}
 
 
 const AuthModal = () => {
+  const dispatch = useDispatch()
      const [open, setOpen] = React.useState(false)
      const handleOpen = () => setOpen(true)
      const handleClose = () => setOpen(false)
      const [value, setValue] = React.useState(0)
-    const {setAlert} = useCryptoStat()
+   
      const handleChange = (event, newValue) => {
        setValue(newValue)
      }
-   const googleProvider = new GoogleAuthProvider()
+  
 
-    const signInWithGoogle = () =>{
-        signInWithPopup(auth,googleProvider).then(result=>{
-            setAlert({
-                open:true,
-                message:`Sign Out Successful`,
-                type:'success'
-            })
-        }).catch(error =>{
-            setAlert({
-              open: true,
-              message: error.message,
-              type: 'error',
-            })
-        })
-        return
-    }
+    
   return (
     <div>
       <Button
@@ -119,10 +97,7 @@ const AuthModal = () => {
             </AppBar>
             {value === 0 && <Login handleClose={handleClose} />}
             {value === 1 && <SignUp handleClose={handleClose} />}
-            <Box sx={google}>
-                <span>OR</span>
-                <GoogleButton style={{width:'100%', outline:'none'}} onClick={signInWithGoogle}/>
-            </Box>
+            
           </Box>
         </Fade>
       </Modal>

@@ -9,7 +9,12 @@ const initialState = {
   symbol: '₹',
   loading: false,
   coins: [],
-  singleCoin:[]
+  singleCoin:[],
+  alert:{
+      open:false,
+      message:'',
+      type:''
+  }
 }
 
 //actions async or compute
@@ -26,29 +31,7 @@ export const fetchCoins = createAsyncThunk(
     }
   }
 )
-export const fetchSingleCoin = createAsyncThunk(
-  'cryptoStates/fetchSingleCoin',
 
-  async (id) => {
-    try {
-      const resp = await axios.get(SingleCoin(id))
-      return resp.data
-    } catch (error) {
-      console.log('fetch error')
-    }
-  }
-)
-export const fetchTrendingCoins = createAsyncThunk(
-  'cryptoState/fetchTrendingCoins',
-  async (currency) => {
-    try {
-      const resp = await axios.get(TrendingCoins(currency))
-      return resp.data
-    } catch (error) {
-      console.log('fetch error')
-    }
-  }
-)
 
 // slice or reducer
 
@@ -59,6 +42,10 @@ export const cryptoSlice = createSlice({
     setCurrency: (state,action) =>{
         state.currency = action.payload
         state.symbol = action.payload === 'INR'? '₹': '$'
+    },
+    setAlert:(state,action)=>{
+        const {open,message,type} =action.payload
+        state.alert = action.payload
     }
   },
   extraReducers: {
@@ -77,8 +64,10 @@ export const cryptoSlice = createSlice({
   },
 })
 
-export const { reducerName } = cryptoSlice.actions
+export const { setCurrency,setAlert } = cryptoSlice.actions
 
 export const selectCoins = (state) => state.coins
 
 export default cryptoSlice.reducer
+
+

@@ -12,6 +12,9 @@ import Button from '@mui/material/Button'
 import { doc, setDoc } from '@firebase/firestore'
 import ReactHtmlParser from 'react-html-parser'
 import { db } from '../config/firebaseConfig'
+import { useSelector, useDispatch } from 'react-redux'
+import { setAlert } from '../features/crypto/cryptoSlice'
+
 
 const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -66,9 +69,15 @@ const Description = styled(Typography)({
 })
 
 const CoinPage = () => {
+  const dispatch = useDispatch()
   const { id } = useParams()
   const [coin, setCoin] = useState()
-  const { currency, symbol, user, watchlist,setAlert } = useCryptoStat()
+  // const { user, watchlist } = useCryptoStat()
+
+
+  const { currency, symbol } = useSelector((store) => store.cryptoData)
+
+  const {user,watchlist} = useSelector(store=>store.userData)
 
   const fetchCoin = async () => {
     const { data } = await axios.get(SingleCoin(id))
@@ -88,17 +97,17 @@ const CoinPage = () => {
       await setDoc(coinRef, {
         coins: watchlist ? [...watchlist, coin?.id] : [coin?.id],
       })
-        setAlert({
+        dispatch(setAlert({
           open: true,
           message: `${coin.name}  added to the Watchlist !`,
           type: 'success',
-        })
+        }))
     } catch (error) {
-        setAlert({
+        dispatch(setAlert({
           open: true,
           message: error.message,
           type: 'error',
-        })
+        }))
     }
   }
 
@@ -111,22 +120,24 @@ const CoinPage = () => {
       },
       {merge:"true"}
       )
-        setAlert({
+       dispatch( setAlert({
           open: true,
           message: `${coin.name} removed from the Watchlist !`,
-          type: 'success',
-        })
+          type: 'error',
+        }))
     } catch (error) {
-        setAlert({
+       dispatch( setAlert({
           open: true,
           message: error.message,
           type: 'error',
-        })
+        }))
     }
   } 
   
 
-  if (!coin) return <LinearProgress style={{ backgroundColor: 'gold' }} />
+  if (!coin) return (
+    <LinearProgress style={{ backgroundColor: 'gold' }}   />
+  )
   
 
   return (

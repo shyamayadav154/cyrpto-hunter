@@ -1,6 +1,6 @@
 import axios from 'axios'
 import React, { useState, useEffect } from 'react'
-
+import { useSelector } from 'react-redux'
 import { HistoricalChart } from '../config/api'
 import { useCryptoStat } from '../context/CryptoContext'
 import {
@@ -19,6 +19,7 @@ import { CircularProgress } from '@mui/material'
 import { Line } from 'react-chartjs-2/'
 import { chartDays, numberWithCommas } from '../utils/utils'
 import moment from 'moment'
+
 
 Chart.register(
   CategoryScale,
@@ -59,7 +60,9 @@ const Wrapper = styled('div')(({ theme }) => ({
 const CoinInfo = ({ coin }) => {
   const [historicData, setHistoricData] = useState()
   const [days, setDays] = useState(1)
-  const { currency } = useCryptoStat()
+  // const { currency } = useCryptoStat()
+
+  const {currency} = useSelector(store=>store.cryptoData)
 
   const fetchChartData = async () => {
     const { data } = await axios.get(HistoricalChart(coin.id, days, currency))

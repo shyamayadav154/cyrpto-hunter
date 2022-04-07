@@ -3,36 +3,39 @@ import { Box, Button, TextField } from '@mui/material'
 import { useCryptoStat } from '../../context/CryptoContext'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../../config/firebaseConfig'
-
+import { setAlert } from '../../features/crypto/cryptoSlice'
+import { useSelector,useDispatch } from 'react-redux'
 const SignUp = ({handleClose}) => {
+  const dispatch = useDispatch()
      const [email, setEmail] = useState('')
      const [password, setPassword] = useState('')
      const [confirmPassword, setConfirmPassword] = useState("")
-     const {setAlert} = useCryptoStat()
+    //  const {setAlert} = useCryptoStat()
+
        const handleSubmit = async () => {
             if (password !== confirmPassword) {
-                setAlert({
+                dispatch(setAlert({
                     open:true,
                     message:'Passwords do not match',
                     type:'error'
-                })
+                }))
                 return
             } 
             try {
                 const result = await createUserWithEmailAndPassword(auth,email,password)
                 console.log(result);
-                setAlert({
+                dispatch(setAlert({
                     open:true,
                     message:`sign up successful. Welcome ${result.user.email}`,
                     type:'success'
-                })
+                }))
                 handleClose()
             } catch (error) {
-                setAlert({
+                dispatch(setAlert({
                     open:true,
                     message:error.message,
                     type:'error'
-                })
+                }))
                 return
             }
        }
