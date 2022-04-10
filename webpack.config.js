@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin')
 
 module.exports = {
   module: {
@@ -31,6 +32,11 @@ module.exports = {
   plugins: [
     new HtmlWebpackPlugin({
       template: './public/index.html', //chose the directory in which your index.html is
+      favicon:'./public/favicon.ico'
+      
+     
     }),
+   
+    
   ],
 }
