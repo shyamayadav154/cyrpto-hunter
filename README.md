@@ -20,7 +20,7 @@ From the repo:
   3. Run npm start in your bash / command line
 
 
-## Dependencies
+## Tech Stack
 
     * React
     * React-Dom
