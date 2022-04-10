@@ -22,11 +22,11 @@ From the repo:
 
 ## Tech Stack
 
-    * React
-    * React-Dom
-    * Babel 
-    * Webpack
-    * Material UI
-    * Axios
-    * Chart Js
-    * Firebase
+ * React
+* React-Dom
+ * Babel 
+ * Webpack
+ * Material UI
+ * Axios
+ * Chart Js
+  * Firebase
