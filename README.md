@@ -3,6 +3,8 @@
 ## Overview
 This project is made to track cryptocurrency prices, and add cryptocurrencies to your watchlist to track the price of particular cryptocurrency
 
+Live Version: [Crypto Hunter](https://crypto-hunter-v1.netlify.app/)
+
 ## Features
 * Realtime Cryptocurrency Price tracking
 *  Chart view for better understanding of cryptocurrency over the time
