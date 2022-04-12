@@ -10,6 +10,10 @@ Live Version: [Crypto Hunter](https://crypto-hunter-v1.netlify.app/)
 *  Chart view for better understanding of cryptocurrency over the time
 *  Authentication and Adding crypto coin to your watchlist
 
+
+![feature 1](src/assets/crypto-1.gif)
+![feature 1](src/assets/crypto-2.gif)
+
 ## Running this project locally
 Live Version: [Crypto Hunter](https://crypto-hunter-v1.netlify.app/)
 
@@ -23,10 +27,10 @@ From the repo:
 ## Tech Stack
 
  * React
-* React-Dom
+ * React-Dom
  * Babel 
  * Webpack
  * Material UI
  * Axios
  * Chart Js
-  * Firebase
+ * Firebase
